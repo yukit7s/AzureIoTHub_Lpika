@@ -1,4 +1,4 @@
-# Azure IoT Hub × Raspberry pi で Cloud to device コマンドを使ったLピカ
+# Azure IoT Hub × Raspberry pi でリモートLピカ
 
 ## はじめに
 今回は、Azure IoT Hub のダイレクトメソッドを使って、LEDライトを操作してみます。  
@@ -106,7 +106,7 @@ client.onDeviceMethod('SetTelemetryInterval', onSetTelemetryInterval);
 
 ```client.onDeviceMethod('SetTelemetryInterval', onSetTelemetryInterval);``` のように書くことで、__SetTelemetryInterval__ というダイレクトメソッドを呼び出したときに、 __onSetTelemetryInterval__ が実行されるようです。これを参考に __LEDON__ と __LEDOFF__ も追加します。
 
-```js:LEDONとLEDOFFのダイレクトメソッドハンドラーを追加
+```js:LEDONとLEDOFFのダイレクトメソッドハンドラーを追加.js
 // Set up the handler for the SetTelemetryInterval direct method call.
 client.onDeviceMethod('SetTelemetryInterval', onSetTelemetryInterval);
 client.onDeviceMethod('LEDON', onLedOn);
@@ -117,7 +117,7 @@ client.onDeviceMethod('LEDOFF', onLedOff);
 LEDライトの操作は、Raspberry Pi の [GPIO](https://www.raspberrypi.org/documentation/usage/gpio/) という機能を使って制御します。
 詳しくはググってみてください。今回は、 JavaScript の [fs](https://nodejs.org/api/fs.html) モジュールを使い、GPIO のファイルを操作します。__onSetTelemetryInterval__ を参考に __onLedOn__ , __onLedOff__ を追加します。
 
-```js:LED操作用 function
+```js:LED操作用function.js
 var fs = require('fs');
 var gpiopin = 4; // GPIO4 (ピン7) を使う
 
@@ -166,7 +166,9 @@ function onLedOff(request, response) {
 }
 ```
 
-以上を __SimulatedDevice.js__ に追記します。完成したものを以下に置いておきます。
+以上を __SimulatedDevice.js__ に追記します。完成したものを以下に置いておきます。  
+https://github.com/yukit7s/AzureIoTHub_Lpika/tree/main/iot-hub_LED
+
 
 最後に、デバイス接続文字列を書き換えます。
 
@@ -248,6 +250,7 @@ __SimulatedDevice.js__ 内に追記したように、今回は GPIO4(ピン7) �
 ![setup_raspberrypi](./images/setup_raspberrypi.jpg)
 
 上の図では、 [ピン7(GPIO4)] -- [抵抗] -- [LEDライト] -- [ピン6(GND)] とつないでいます。
+※回路がショートすると危険なので、抵抗器の針金は短く切ったほうが良いと思います。
 
 ここまでで、 __3. Raspberry Pi をセットアップする__ も完了です。
 
