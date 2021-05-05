@@ -2,7 +2,7 @@
 
 ## はじめに
 今回は、Azure IoT Hub のダイレクトメソッドを使って、LEDライトを操作してみます。  
-[ダイレクトメソッド](https://docs.microsoft.com/ja-jp/azure/iot-hub/iot-hub-devguide-direct-methods) とは、クラウドからデバイス上に実装されているメソッドを呼び出す機能です。
+[ダイレクトメソッド](https://docs.microsoft.com/ja-jp/azure/iot-hub/iot-hub-devguide-direct-methods) とは、デバイス上に実装されているメソッドをクラウドから呼び出す機能です。
 今回は、Raspberry Pi 上で Node.js のアプリを実行し、GPIO の制御によってLEDライトをオン／オフします。
 
 具体的には、Azure Portal から __LEDON__ というダイレクトメソッドを実行することで、 Raspberry Pi に接続しているLEDライトが点灯し、 __LEDOFF__ というダイレクトメソッドでLEDライトが消えるようにします。
@@ -58,7 +58,7 @@ az iot hub device-identity connection-string show --hub-name $YourIoTHubName --d
 
 <br />
 
-#### 2. Node.js アプリを作成する
+### 2. Node.js アプリを作成する
 
 公式ドキュメント内でも案内されている、 [サンプル Node.js プロジェクト](https://github.com/Azure-Samples/azure-iot-samples-node/) をもとに、今回のアプリを作成します。
 
